@@ -88,7 +88,7 @@
   <div id="musicSection">
     <h2>Menu Musik</h2>
     <p>Selamat datang di bagian musik spesial 🎶</p>
-    <audio controls>
+    <audio controls autoplay>
       <source src="special.mp3" type="audio/mpeg">
       Browser kamu tidak mendukung audio.
     </audio>
@@ -151,6 +151,7 @@
     birthdayImage.addEventListener("click", () => {
       content.style.display = "none";
       musicSection.style.display = "flex";
+      bgMusic.pause(); // ⏹️ Matikan musik happy saat ke menu musik
     });
   </script>
 </body>
