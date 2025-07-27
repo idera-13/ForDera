@@ -4,13 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Ucapan Ulang Tahun</title>
-
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-
-  <!-- Confetti Library -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
   <style>
     @keyframes gradientBG {
       0% {background-position: 0% 50%;}
@@ -91,14 +86,15 @@
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     }
 
-    #noBtn, #no2Btn {
-      background-color: #ff5e57;
-      color: white;
-    }
-
-    #yesBtn, #yes2Btn {
-      background-color: #4caf50;
-      color: white;
+    input[type="text"], input[type="password"], input[type="number"] {
+      padding: 10px;
+      font-size: 1em;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      width: 220px;
+      text-align: center;
+      animation: bounce 1.5s infinite;
     }
 
     #loginSection, #intro, #step2, #passwordSection, #content, #musicSection {
@@ -114,15 +110,8 @@
       margin: 20px;
     }
 
-    input[type="text"], input[type="password"], input[type="number"] {
-      padding: 10px;
-      font-size: 1em;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      margin-bottom: 10px;
-      width: 250px;
-      text-align: center;
-      animation: bounce 1.5s infinite;
+    #loginSection {
+      display: flex;
     }
 
     img {
@@ -164,20 +153,20 @@
 </head>
 <body>
 
-  <!-- Emoji lucu -->
+  <!-- Emoji lucu berjalan -->
   <div class="emoji">🎂</div>
   <div class="emoji">🎈</div>
   <div class="emoji">🐥</div>
 
-  <!-- Form Login -->
+  <!-- Login -->
   <div id="loginSection">
     <div class="question">Login dulu yaa 🥰</div>
-    <input type="text" id="username" placeholder="Username (contoh: dera)" />
-    <input type="password" id="password" placeholder="Password (contoh: idam)" />
+    <input type="text" id="username" placeholder="Username (contoh: kocak)" />
+    <input type="password" id="passwordField" placeholder="Password (contoh: 102938)" />
     <button id="loginButton">Login 🔓</button>
   </div>
 
-  <!-- Bagian Intro -->
+  <!-- Intro -->
   <div id="intro">
     <div class="question">Hai kamu Dera pacarnya Idam bukan? 😏</div>
     <div class="button-group">
@@ -202,7 +191,9 @@
 
   <div id="content">
     <img src="36738.jpg" alt="Ucapan Ulang Tahun" id="birthdayImage"/>
-    <p>Selamat ulang tahun yang ke-20, sayangku cintaku cantiknya akuuuu. Hari ini adalah hari spesial...</p>
+    <p>Selamat ulang tahun yang ke-20, sayangku cintaku cantiknya akuuuu. Hari ini adalah hari spesial, karena 20 tahun yang lalu, Tuhan menghadirkan seseorang yang luar biasa ke dunia ini — kamu. Mas bersyukur banget bisa jadi bagian dari hidupmu...
+    Mas cinta kamu selamanya🫶🏽😘
+    <br>Btw fotonya bisa di klik loh</p>
     <audio id="bgMusic" autoplay loop>
       <source src="happy.mp3" type="audio/mpeg">
     </audio>
@@ -219,43 +210,104 @@
     </audio>
   </div>
 
-  <!-- Suara klik -->
   <audio id="clickSound" src="click.mp3" preload="auto"></audio>
 
   <script>
     const loginSection = document.getElementById("loginSection");
     const usernameInput = document.getElementById("username");
-    const passwordInputField = document.getElementById("password");
+    const passwordInputField = document.getElementById("passwordField");
     const loginButton = document.getElementById("loginButton");
 
-    const yesBtn = document.getElementById("yesBtn");
-    const noBtn = document.getElementById("noBtn");
-    const yes2Btn = document.getElementById("yes2Btn");
-    const no2Btn = document.getElementById("no2Btn");
     const intro = document.getElementById("intro");
     const step2 = document.getElementById("step2");
     const passwordSection = document.getElementById("passwordSection");
     const passwordInput = document.getElementById("passwordInput");
-    const submitPassword = document.getElementById("submitPassword");
     const content = document.getElementById("content");
     const musicSection = document.getElementById("musicSection");
     const birthdayImage = document.getElementById("birthdayImage");
     const bgMusic = document.getElementById("bgMusic");
     const clickSound = document.getElementById("clickSound");
 
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const yes2Btn = document.getElementById("yes2Btn");
+    const no2Btn = document.getElementById("no2Btn");
+    const submitPassword = document.getElementById("submitPassword");
+
     let yes2ClickCount = 0;
 
-    // Suara klik
     function playClick() {
       clickSound.currentTime = 0;
       clickSound.play();
     }
 
-    // Login dulu
-    window.onload = () => {
-      loginSection.style.display = "flex";
-    };
-
     loginButton.addEventListener("click", () => {
+      const user = usernameInput.value.trim().toLowerCase();
+      const pass = passwordInputField.value.trim();
+      if (user === "kocak" && pass === "102938") {
+        loginSection.style.display = "none";
+        intro.style.display = "flex";
+      } else {
+        alert("Login gagal yaa 😝");
+      }
+    });
+
+    yesBtn.addEventListener("click", () => {
       playClick();
-      const user = usernameInput.value.trim().
+      intro.style.display = "none";
+      step2.style.display = "flex";
+    });
+
+    noBtn.addEventListener("mouseover", () => {
+      const maxX = window.innerWidth - noBtn.offsetWidth;
+      const maxY = window.innerHeight - noBtn.offsetHeight;
+      noBtn.style.position = "absolute";
+      noBtn.style.left = Math.floor(Math.random() * maxX) + "px";
+      noBtn.style.top = Math.floor(Math.random() * maxY) + "px";
+    });
+
+    yes2Btn.addEventListener("click", () => {
+      playClick();
+      yes2ClickCount++;
+      if (yes2ClickCount < 3) {
+        const maxX = window.innerWidth - yes2Btn.offsetWidth;
+        const maxY = window.innerHeight - yes2Btn.offsetHeight;
+        yes2Btn.style.position = "absolute";
+        yes2Btn.style.left = Math.floor(Math.random() * maxX) + "px";
+        yes2Btn.style.top = Math.floor(Math.random() * maxY) + "px";
+        if (yes2ClickCount === 2) {
+          yes2Btn.textContent = "Yakin? 😏";
+        }
+      } else {
+        step2.style.display = "none";
+        passwordSection.style.display = "flex";
+      }
+    });
+
+    no2Btn.addEventListener("click", () => {
+      playClick();
+      step2.style.display = "none";
+      intro.style.display = "flex";
+    });
+
+    submitPassword.addEventListener("click", () => {
+      playClick();
+      if (passwordInput.value === "20") {
+        passwordSection.style.display = "none";
+        content.style.display = "flex";
+        bgMusic.play();
+        confetti({ particleCount: 200, spread: 120, origin: { y: 0.6 } });
+      } else {
+        alert("Salah kocak");
+      }
+    });
+
+    birthdayImage.addEventListener("click", () => {
+      playClick();
+      content.style.display = "none";
+      musicSection.style.display = "flex";
+      bgMusic.pause();
+    });
+  </script>
+</body>
+</html>
