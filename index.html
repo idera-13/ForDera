@@ -34,16 +34,16 @@
       border-radius: 8px;
       cursor: pointer;
     }
-    #noBtn {
+    #noBtn, #no2Btn {
       background-color: #ff5e57;
       color: white;
       position: relative;
     }
-    #yesBtn {
+    #yesBtn, #yes2Btn {
       background-color: #4caf50;
       color: white;
     }
-    #content {
+    #content, #step2 {
       display: none;
       flex-direction: column;
       align-items: center;
@@ -54,6 +54,9 @@
       height: auto;
       border-radius: 15px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    audio {
+      display: none;
     }
   </style>
 </head>
@@ -66,21 +69,37 @@
     </div>
   </div>
 
+  <div id="step2">
+    <div class="question">Beneran Dera?</div>
+    <div class="button-group">
+      <button id="yes2Btn">Iya</button>
+      <button id="no2Btn">Bukan</button>
+    </div>
+  </div>
+
   <div id="content">
     <h1>Selamat Ulang Tahun!</h1>
     <p>Semoga di hari spesial ini, kamu diberkahi kebahagiaan, kesehatan, dan semua impianmu tercapai.</p>
     <img src="36738.jpg" alt="Ucapan Ulang Tahun" />
+    <audio id="bgMusic" autoplay loop>
+      <source src="happy.mp3" type="audio/mpeg">
+      Browser kamu tidak mendukung audio.
+    </audio>
   </div>
 
   <script>
     const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
+    const yes2Btn = document.getElementById("yes2Btn");
+    const no2Btn = document.getElementById("no2Btn");
     const intro = document.getElementById("intro");
+    const step2 = document.getElementById("step2");
     const content = document.getElementById("content");
+    const bgMusic = document.getElementById("bgMusic");
 
     yesBtn.addEventListener("click", () => {
       intro.style.display = "none";
-      content.style.display = "flex";
+      step2.style.display = "flex";
     });
 
     noBtn.addEventListener("mouseover", () => {
@@ -91,6 +110,17 @@
       noBtn.style.position = "absolute";
       noBtn.style.left = randomX + "px";
       noBtn.style.top = randomY + "px";
+    });
+
+    yes2Btn.addEventListener("click", () => {
+      step2.style.display = "none";
+      content.style.display = "flex";
+      bgMusic.play();
+    });
+
+    no2Btn.addEventListener("click", () => {
+      step2.style.display = "none";
+      intro.style.display = "flex";
     });
   </script>
 </body>
