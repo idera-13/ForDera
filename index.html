@@ -16,9 +16,6 @@
       margin: 0;
       text-align: center;
     }
-    h1, p {
-      color: #333;
-    }
     .question {
       font-size: 1.5em;
       margin-bottom: 20px;
@@ -44,7 +41,7 @@
       color: white;
       position: relative;
     }
-    #content, #step2 {
+    #content, #step2, #musicSection {
       display: none;
       flex-direction: column;
       align-items: center;
@@ -55,9 +52,10 @@
       height: auto;
       border-radius: 15px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
     }
     audio {
-      display: none;
+      margin-top: 20px;
     }
   </style>
 </head>
@@ -79,11 +77,19 @@
   </div>
 
   <div id="content">
-    <h1>Selamat Ulang Tahun!</h1>
+    <img src="36738.jpg" alt="Ucapan Ulang Tahun" id="birthdayImage" />
     <p>Semoga di hari spesial ini, kamu diberkahi kebahagiaan, kesehatan, dan semua impianmu tercapai.</p>
-    <img src="36738.jpg" alt="Ucapan Ulang Tahun" />
     <audio id="bgMusic" autoplay loop>
       <source src="happy.mp3" type="audio/mpeg">
+      Browser kamu tidak mendukung audio.
+    </audio>
+  </div>
+
+  <div id="musicSection">
+    <h2>Menu Musik</h2>
+    <p>Selamat datang di bagian musik spesial 🎶</p>
+    <audio controls>
+      <source src="special.mp3" type="audio/mpeg">
       Browser kamu tidak mendukung audio.
     </audio>
   </div>
@@ -96,6 +102,8 @@
     const intro = document.getElementById("intro");
     const step2 = document.getElementById("step2");
     const content = document.getElementById("content");
+    const musicSection = document.getElementById("musicSection");
+    const birthdayImage = document.getElementById("birthdayImage");
     const bgMusic = document.getElementById("bgMusic");
 
     let yes2ClickCount = 0;
@@ -125,6 +133,9 @@
         yes2Btn.style.position = "absolute";
         yes2Btn.style.left = randomX + "px";
         yes2Btn.style.top = randomY + "px";
+        if (yes2ClickCount === 2) {
+          yes2Btn.textContent = "Yakin?";
+        }
       } else {
         step2.style.display = "none";
         content.style.display = "flex";
@@ -135,6 +146,11 @@
     no2Btn.addEventListener("click", () => {
       step2.style.display = "none";
       intro.style.display = "flex";
+    });
+
+    birthdayImage.addEventListener("click", () => {
+      content.style.display = "none";
+      musicSection.style.display = "flex";
     });
   </script>
 </body>
