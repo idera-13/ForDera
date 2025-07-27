@@ -41,14 +41,14 @@
       color: white;
       position: relative;
     }
-    #content, #step2, #musicSection {
+    #content, #step2, #musicSection, #passwordSection {
       display: none;
       flex-direction: column;
       align-items: center;
     }
     img {
       margin-top: 20px;
-      max-width: 100%;
+      max-width: 90%;
       height: auto;
       border-radius: 15px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -56,6 +56,15 @@
     }
     audio {
       margin-top: 20px;
+    }
+    input[type="number"] {
+      padding: 10px;
+      font-size: 1em;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      width: 200px;
+      text-align: center;
     }
   </style>
 </head>
@@ -76,12 +85,17 @@
     </div>
   </div>
 
+  <div id="passwordSection">
+    <div class="question">Silakan isi ini sesuai dengan umurmu yg sekarang</div>
+    <input type="number" id="passwordInput" placeholder="Masukkan angka" />
+    <button id="submitPassword">Masuk</button>
+  </div>
+
   <div id="content">
-    <img src="36738.jpg" alt="Ucapan Ulang Tahun" id="birthdayImage" />
+    <img src="https://via.placeholder.com/300x200.png?text=Selamat+Ulang+Tahun" alt="Ucapan Ulang Tahun" id="birthdayImage" />
     <p>Semoga di hari spesial ini, kamu diberkahi kebahagiaan, kesehatan, dan semua impianmu tercapai.</p>
     <audio id="bgMusic" autoplay loop>
-      <source src="happy.mp3" type="audio/mpeg">
-      Browser kamu tidak mendukung audio.
+      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
   </div>
 
@@ -89,8 +103,7 @@
     <h2>Menu Musik</h2>
     <p>Selamat datang di bagian musik spesial 🎶</p>
     <audio controls autoplay>
-      <source src="special.mp3" type="audio/mpeg">
-      Browser kamu tidak mendukung audio.
+      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
     </audio>
   </div>
 
@@ -101,6 +114,9 @@
     const no2Btn = document.getElementById("no2Btn");
     const intro = document.getElementById("intro");
     const step2 = document.getElementById("step2");
+    const passwordSection = document.getElementById("passwordSection");
+    const passwordInput = document.getElementById("passwordInput");
+    const submitPassword = document.getElementById("submitPassword");
     const content = document.getElementById("content");
     const musicSection = document.getElementById("musicSection");
     const birthdayImage = document.getElementById("birthdayImage");
@@ -116,11 +132,9 @@
     noBtn.addEventListener("mouseover", () => {
       const maxX = window.innerWidth - noBtn.offsetWidth;
       const maxY = window.innerHeight - noBtn.offsetHeight;
-      const randomX = Math.floor(Math.random() * maxX);
-      const randomY = Math.floor(Math.random() * maxY);
       noBtn.style.position = "absolute";
-      noBtn.style.left = randomX + "px";
-      noBtn.style.top = randomY + "px";
+      noBtn.style.left = Math.floor(Math.random() * maxX) + "px";
+      noBtn.style.top = Math.floor(Math.random() * maxY) + "px";
     });
 
     yes2Btn.addEventListener("click", () => {
@@ -128,18 +142,15 @@
       if (yes2ClickCount < 3) {
         const maxX = window.innerWidth - yes2Btn.offsetWidth;
         const maxY = window.innerHeight - yes2Btn.offsetHeight;
-        const randomX = Math.floor(Math.random() * maxX);
-        const randomY = Math.floor(Math.random() * maxY);
         yes2Btn.style.position = "absolute";
-        yes2Btn.style.left = randomX + "px";
-        yes2Btn.style.top = randomY + "px";
+        yes2Btn.style.left = Math.floor(Math.random() * maxX) + "px";
+        yes2Btn.style.top = Math.floor(Math.random() * maxY) + "px";
         if (yes2ClickCount === 2) {
           yes2Btn.textContent = "Yakin?";
         }
       } else {
         step2.style.display = "none";
-        content.style.display = "flex";
-        bgMusic.play();
+        passwordSection.style.display = "flex";
       }
     });
 
@@ -148,10 +159,21 @@
       intro.style.display = "flex";
     });
 
+    submitPassword.addEventListener("click", () => {
+      const value = passwordInput.value;
+      if (value === "20") {
+        passwordSection.style.display = "none";
+        content.style.display = "flex";
+        bgMusic.play();
+      } else {
+        alert("Salah kocak");
+      }
+    });
+
     birthdayImage.addEventListener("click", () => {
       content.style.display = "none";
       musicSection.style.display = "flex";
-      bgMusic.pause(); // ⏹️ Matikan musik happy saat ke menu musik
+      bgMusic.pause();
     });
   </script>
 </body>
