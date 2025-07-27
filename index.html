@@ -42,6 +42,7 @@
     #yesBtn, #yes2Btn {
       background-color: #4caf50;
       color: white;
+      position: relative;
     }
     #content, #step2 {
       display: none;
@@ -97,6 +98,8 @@
     const content = document.getElementById("content");
     const bgMusic = document.getElementById("bgMusic");
 
+    let yes2ClickCount = 0;
+
     yesBtn.addEventListener("click", () => {
       intro.style.display = "none";
       step2.style.display = "flex";
@@ -113,9 +116,20 @@
     });
 
     yes2Btn.addEventListener("click", () => {
-      step2.style.display = "none";
-      content.style.display = "flex";
-      bgMusic.play();
+      yes2ClickCount++;
+      if (yes2ClickCount < 3) {
+        const maxX = window.innerWidth - yes2Btn.offsetWidth;
+        const maxY = window.innerHeight - yes2Btn.offsetHeight;
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY);
+        yes2Btn.style.position = "absolute";
+        yes2Btn.style.left = randomX + "px";
+        yes2Btn.style.top = randomY + "px";
+      } else {
+        step2.style.display = "none";
+        content.style.display = "flex";
+        bgMusic.play();
+      }
     });
 
     no2Btn.addEventListener("click", () => {
