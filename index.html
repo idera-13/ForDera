@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Ucapan Ulang Tahun</title>
-  
+
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
@@ -101,7 +101,7 @@
       color: white;
     }
 
-    #content, #step2, #musicSection, #passwordSection {
+    #loginSection, #intro, #step2, #passwordSection, #content, #musicSection {
       display: none;
       flex-direction: column;
       align-items: center;
@@ -112,6 +112,17 @@
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
       max-width: 600px;
       margin: 20px;
+    }
+
+    input[type="text"], input[type="password"], input[type="number"] {
+      padding: 10px;
+      font-size: 1em;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      width: 250px;
+      text-align: center;
+      animation: bounce 1.5s infinite;
     }
 
     img {
@@ -130,17 +141,6 @@
       margin-top: 20px;
     }
 
-    input[type="number"] {
-      padding: 10px;
-      font-size: 1em;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      margin-bottom: 10px;
-      width: 200px;
-      text-align: center;
-      animation: bounce 1.5s infinite;
-    }
-
     h2 {
       animation: wiggle 1.5s infinite;
     }
@@ -150,7 +150,6 @@
       animation: fadeIn 2s ease-in;
     }
 
-    /* Emoji animasi jalan */
     .emoji {
       position: absolute;
       top: 80%;
@@ -164,10 +163,19 @@
   </style>
 </head>
 <body>
-  <!-- Emoji lucu berjalan -->
+
+  <!-- Emoji lucu -->
   <div class="emoji">🎂</div>
   <div class="emoji">🎈</div>
   <div class="emoji">🐥</div>
+
+  <!-- Form Login -->
+  <div id="loginSection">
+    <div class="question">Login dulu yaa 🥰</div>
+    <input type="text" id="username" placeholder="Username (contoh: dera)" />
+    <input type="password" id="password" placeholder="Password (contoh: idam)" />
+    <button id="loginButton">Login 🔓</button>
+  </div>
 
   <!-- Bagian Intro -->
   <div id="intro">
@@ -194,9 +202,7 @@
 
   <div id="content">
     <img src="36738.jpg" alt="Ucapan Ulang Tahun" id="birthdayImage"/>
-    <p>Selamat ulang tahun yang ke-20, sayangku cintaku cantiknya akuuuu. Hari ini adalah hari spesial, karena 20 tahun yang lalu, Tuhan menghadirkan seseorang yang luar biasa ke dunia ini — kamu. Mas bersyukur banget bisa jadi bagian dari hidupmu, semua jadi alasan kenapa mas makin sayang sama kamu setiap harinya. Di umur yang baru ini, mas doain semoga semua impianmu bisa tercapai, langkahmu makin ringan, dan hatimu selalu bahagia. Terus jadi deranya mas yang cantik imut manis yaaa. Terima kasih sudah selalu ada buat mas. Mas janji akan terus jaga kamu, sayaang kamuuu dan temani kamu bukan cuma di hari ulang tahun, tapi setiap hari, setiap waktu.
-Selamat ulang tahun, sayangku cintaku cantiknya akuuu. Maaf ya sayang kadonya mas cuma bisa ngasih ini sekarang sama fotonya cuma make ai wkwk lagian ga pernah ketemu sii tapi th depan kan ketemu hehe jadi ini dulu ya fotonya. Mas cinta kamu selamanya🫶🏽😘
-Btw fotonya bisa di klik loh</p>
+    <p>Selamat ulang tahun yang ke-20, sayangku cintaku cantiknya akuuuu. Hari ini adalah hari spesial...</p>
     <audio id="bgMusic" autoplay loop>
       <source src="happy.mp3" type="audio/mpeg">
     </audio>
@@ -213,10 +219,15 @@ Btw fotonya bisa di klik loh</p>
     </audio>
   </div>
 
-  <!-- Efek suara klik -->
+  <!-- Suara klik -->
   <audio id="clickSound" src="click.mp3" preload="auto"></audio>
 
   <script>
+    const loginSection = document.getElementById("loginSection");
+    const usernameInput = document.getElementById("username");
+    const passwordInputField = document.getElementById("password");
+    const loginButton = document.getElementById("loginButton");
+
     const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
     const yes2Btn = document.getElementById("yes2Btn");
@@ -234,73 +245,17 @@ Btw fotonya bisa di klik loh</p>
 
     let yes2ClickCount = 0;
 
-    // Fungsi untuk mainkan suara klik
+    // Suara klik
     function playClick() {
       clickSound.currentTime = 0;
       clickSound.play();
     }
 
-    yesBtn.addEventListener("click", () => {
-      playClick();
-      intro.style.display = "none";
-      step2.style.display = "flex";
-    });
+    // Login dulu
+    window.onload = () => {
+      loginSection.style.display = "flex";
+    };
 
-    noBtn.addEventListener("mouseover", () => {
-      const maxX = window.innerWidth - noBtn.offsetWidth;
-      const maxY = window.innerHeight - noBtn.offsetHeight;
-      noBtn.style.position = "absolute";
-      noBtn.style.left = Math.floor(Math.random() * maxX) + "px";
-      noBtn.style.top = Math.floor(Math.random() * maxY) + "px";
-    });
-
-    yes2Btn.addEventListener("click", () => {
+    loginButton.addEventListener("click", () => {
       playClick();
-      yes2ClickCount++;
-      if (yes2ClickCount < 3) {
-        const maxX = window.innerWidth - yes2Btn.offsetWidth;
-        const maxY = window.innerHeight - yes2Btn.offsetHeight;
-        yes2Btn.style.position = "absolute";
-        yes2Btn.style.left = Math.floor(Math.random() * maxX) + "px";
-        yes2Btn.style.top = Math.floor(Math.random() * maxY) + "px";
-        if (yes2ClickCount === 2) {
-          yes2Btn.textContent = "Yakin? 😏";
-        }
-      } else {
-        step2.style.display = "none";
-        passwordSection.style.display = "flex";
-      }
-    });
-
-    no2Btn.addEventListener("click", () => {
-      playClick();
-      step2.style.display = "none";
-      intro.style.display = "flex";
-    });
-
-    submitPassword.addEventListener("click", () => {
-      playClick();
-      const value = passwordInput.value;
-      if (value === "20") {
-        passwordSection.style.display = "none";
-        content.style.display = "flex";
-        bgMusic.play();
-        confetti({
-          particleCount: 200,
-          spread: 120,
-          origin: { y: 0.6 }
-        });
-      } else {
-        alert("Salah kocak 😝");
-      }
-    });
-
-    birthdayImage.addEventListener("click", () => {
-      playClick();
-      content.style.display = "none";
-      musicSection.style.display = "flex";
-      bgMusic.pause();
-    });
-  </script>
-</body>
-</html>
+      const user = usernameInput.value.trim().
